@@ -12,3 +12,4 @@ add_executable(wersja_glowna src/aegis_zero_v1.c)
 
 # Tworzymy DRUGI program (np. dla ulepszonej wersji)
 add_executable(testowa1 src/aegis_zero_v2.1.c)
+add_executable(testowa2 src/aegis_zero_v2.2.c)
