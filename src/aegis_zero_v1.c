@@ -6,7 +6,7 @@
 #include <time.h>
 
 // ---------------------------------------------------------
-// PARAMETRY Z RAPORTU AEGIS-ZERO
+// PARAMETRY
 // ---------------------------------------------------------
 #define NUM_TRUSTED     10000       // Rozmiar Bazy Zaufanej
 #define NUM_ATTACKERS   1000000     // Rozmiar Bazy Atakujacej (1 mln)
