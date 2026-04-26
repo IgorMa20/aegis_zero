@@ -1,7 +1,5 @@
 // ==========================================================
 // EKSPERYMENT 2: Rownolegle sprawdzanie pakietow na GPU
-// Architektura: RTX 2070 Super (Turing, CUDA 7.5)
-// Kompilacja: nvcc -O2 -arch=sm_75 -o experiment2_gpu experiment2_gpu.cu
 // ==========================================================
 
 #include <stdio.h>
@@ -306,12 +304,6 @@ int main() {
     printf("\nLimit AEGIS-ZERO: 6.7 ns/pakiet\n");
     printf("Limit spelnia:    %s\n",
            (gpu_ns_global <= 6.7 || gpu_ns_shared <= 6.7) ? "GPU TAK" : "Wymaga dalszej optymalizacji");
-
-    printf("\nWnioski:\n");
-    printf("  - GPU pozwala na rownolegle przetwarzanie %d pakietow jednoczesnie.\n", BLOCK_SIZE * num_blocks);
-    printf("  - Przyspieszenie jest szczegolnie widoczne przy duzej przepustowosci.\n");
-    printf("  - Wersja shared memory redukuje latencje dostepu do filtru Blooma.\n");
-    printf("  - W kontekscie FPGA rownoleglosc GPU jest analogiczna do pipeline'u sprzętowego.\n\n");
 
     // Sprzatanie
     CUDA_CHECK(cudaFree(d_bloom));
