@@ -1,0 +1,16 @@
+Fitter Status : Successful - Tue May 19 16:04:45 2026
+Quartus Prime Version : 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Revision Name : aegis_zero
+Top-level Entity Name : top_aegis_zero
+Family : Cyclone IV E
+Device : EP4CE115F29C7
+Timing Models : Final
+Total logic elements : 26,483 / 114,480 ( 23 % )
+    Total combinational functions : 26,474 / 114,480 ( 23 % )
+    Dedicated logic registers : 423 / 114,480 ( < 1 % )
+Total registers : 423
+Total pins : 264 / 529 ( 50 % )
+Total virtual pins : 0
+Total memory bits : 320,000 / 3,981,312 ( 8 % )
+Embedded Multiplier 9-bit elements : 36 / 532 ( 7 % )
+Total PLLs : 0 / 4 ( 0 % )

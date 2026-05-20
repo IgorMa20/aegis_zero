@@ -1,0 +1,7 @@
+TP0 010393ae idx 0
+TP1 01041f9f idx 1
+TP2 010b94af idx 2
+FP  c0a80001 final DENY
+TN  deadbeef final DENY
+EDGE 00000000 final DENY
+EDGE ffffffff final DENY

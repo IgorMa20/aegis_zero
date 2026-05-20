@@ -1,0 +1,105 @@
+# .
+# reading modelsim.ini
+# C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero
+# ModelSim working directory: C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/simulation/modelsim
+# Project directory: C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work work 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:49:19 on May 19,2026
+# vlog -reportprogress 300 -sv C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/packet_parser.v 
+# -- Compiling module packet_parser
+# 
+# Top level modules:
+# 	packet_parser
+# End time: 10:49:19 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:49:19 on May 19,2026
+# vlog -reportprogress 300 -sv C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/bloom_filter.v 
+# -- Compiling module bloom_filter
+# 
+# Top level modules:
+# 	bloom_filter
+# End time: 10:49:19 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:49:19 on May 19,2026
+# vlog -reportprogress 300 -sv C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/mphf_lookup.v 
+# -- Compiling module mphf_lookup
+# 
+# Top level modules:
+# 	mphf_lookup
+# End time: 10:49:20 on May 19,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:49:20 on May 19,2026
+# vlog -reportprogress 300 -sv C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/bram_rule_memory.v 
+# -- Compiling module bram_rule_memory
+# 
+# Top level modules:
+# 	bram_rule_memory
+# End time: 10:49:20 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:49:20 on May 19,2026
+# vlog -reportprogress 300 -sv C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/decision_unit.v 
+# -- Compiling module decision_unit
+# 
+# Top level modules:
+# 	decision_unit
+# End time: 10:49:20 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:49:20 on May 19,2026
+# vlog -reportprogress 300 -sv C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/top_aegis_zero.v 
+# -- Compiling module top_aegis_zero
+# 
+# Top level modules:
+# 	top_aegis_zero
+# End time: 10:49:20 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:49:20 on May 19,2026
+# vlog -reportprogress 300 -sv C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/tb_aegis_zero_top.v 
+# -- Compiling module tb_aegis_zero_top
+# 
+# Top level modules:
+# 	tb_aegis_zero_top
+# End time: 10:49:20 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -voptargs="+acc" work.tb_aegis_zero_top 
+# Start time: 10:49:20 on May 19,2026
+# Loading sv_std.std
+# Loading work.tb_aegis_zero_top
+# Loading work.top_aegis_zero
+# Loading work.packet_parser
+# Loading work.bloom_filter
+# Loading work.mphf_lookup
+# Loading work.bram_rule_memory
+# Loading work.decision_unit
+# SC_TP: True Positive -> ALLOW
+# PASS True Positive bram_rules[0]      ip=010393ae bloom=0 decision=1 lhd=0 stored_ip=010393ae
+# PASS True Positive bram_rules[1]      ip=01041f9f bloom=0 decision=1 lhd=1 stored_ip=01041f9f
+# SC_TN: True Negative -> DENY
+# PASS True Negative deadbeef           ip=deadbeef bloom=0 decision=0 lhd=9960 stored_ip=df2a8968
+# SC_FP: False Positive Recovery / bledny LHD -> DENY
+# PASS False Positive recovery          ip=c0a80001 bloom=0 decision=0 lhd=8274 stored_ip=babbefdc
+# SC_EDGE: adresy brzegowe -> DENY
+# PASS 0.0.0.0                          ip=00000000 bloom=0 decision=0 lhd=9652 stored_ip=d89578a8
+# PASS 255.255.255.255                  ip=ffffffff bloom=0 decision=0 lhd=9921 stored_ip=de5d2e79
+# SC_PIPE: ciag pakietow co cykl
+# PASS SC_PIPE output[0] decision=1
+# PASS SC_PIPE output[1] decision=0
+# PASS SC_PIPE output[2] decision=0
+# PASS SC_PIPE output[3] decision=1
+# SUMMARY tb_aegis_zero_top: pass=10 fail=0
+# ** Note: $finish    : C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/tb_aegis_zero_top.v(199)
+#    Time: 616 ns  Iteration: 0  Instance: /tb_aegis_zero_top
+# 1
+# Break in Module tb_aegis_zero_top at C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/tb_aegis_zero_top.v line 199
+# 0 ps
+# 646800 ps
+# End time: 10:51:28 on May 19,2026, Elapsed time: 0:02:08
+# Errors: 0, Warnings: 0

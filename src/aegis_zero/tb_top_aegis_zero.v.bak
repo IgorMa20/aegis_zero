@@ -1,0 +1,135 @@
+module tb_top_aegis_zero;
+
+    reg clk;
+    reg rst;
+
+    reg        packet_valid;
+    reg [31:0] src_ip_in;
+    reg [31:0] dst_ip_in;
+    reg [15:0] src_port_in;
+    reg [15:0] dst_port_in;
+    reg [7:0]  protocol_in;
+
+    wire [31:0] src_ip;
+    wire [31:0] dst_ip;
+    wire [15:0] src_port;
+    wire [15:0] dst_port;
+    wire [7:0]  protocol;
+
+    wire bloom_pass;
+    wire valid_bloom;
+
+    top_aegis_zero uut (
+        .clk(clk),
+        .rst(rst),
+
+        .packet_valid(packet_valid),
+        .src_ip_in(src_ip_in),
+        .dst_ip_in(dst_ip_in),
+        .src_port_in(src_port_in),
+        .dst_port_in(dst_port_in),
+        .protocol_in(protocol_in),
+
+        .src_ip(src_ip),
+        .dst_ip(dst_ip),
+        .src_port(src_port),
+        .dst_port(dst_port),
+        .protocol(protocol),
+
+        .bloom_pass(bloom_pass),
+        .valid_bloom(valid_bloom)
+    );
+
+    always #5 clk = ~clk;  // okres zegara 10 ns
+
+    task send_packet;
+        input [31:0] test_src_ip;
+        input [31:0] test_dst_ip;
+        input [15:0] test_src_port;
+        input [15:0] test_dst_port;
+        input [7:0]  test_protocol;
+        input        expected_bloom_pass;
+
+        begin
+            @(negedge clk);
+            packet_valid = 1'b1;
+            src_ip_in    = test_src_ip;
+            dst_ip_in    = test_dst_ip;
+            src_port_in  = test_src_port;
+            dst_port_in  = test_dst_port;
+            protocol_in  = test_protocol;
+
+            @(negedge clk);
+            packet_valid = 1'b0;
+
+            // Czekamy na przejście przez packet_parser i bloom_filter.
+            // Dla tej wersji zwykle wystarczy 2-3 cykle.
+            repeat (3) @(negedge clk);
+
+            if (bloom_pass !== expected_bloom_pass) begin
+                $display("TEST FAILED: src_ip=%h expected bloom_pass=%b got=%b valid_bloom=%b",
+                         test_src_ip, expected_bloom_pass, bloom_pass, valid_bloom);
+            end else begin
+                $display("TEST PASSED: src_ip=%h bloom_pass=%b valid_bloom=%b",
+                         test_src_ip, bloom_pass, valid_bloom);
+            end
+        end
+    endtask
+
+    initial begin
+        clk = 1'b0;
+        rst = 1'b1;
+
+        packet_valid = 1'b0;
+        src_ip_in    = 32'h00000000;
+        dst_ip_in    = 32'h00000000;
+        src_port_in  = 16'h0000;
+        dst_port_in  = 16'h0000;
+        protocol_in  = 8'h00;
+
+        #30;
+        rst = 1'b0;
+
+        // Adresy, które powinny być wpisane w bloom_filter.hex
+        send_packet(
+            32'hC0A80001,   // 192.168.0.1
+            32'hC0A800FE,
+            16'd12345,
+            16'd80,
+            8'h06,
+            1'b1
+        );
+
+        send_packet(
+            32'hC0A80002,   // 192.168.0.2
+            32'hC0A800FE,
+            16'd12346,
+            16'd443,
+            8'h06,
+            1'b1
+        );
+
+        send_packet(
+            32'h0A000001,   // 10.0.0.1
+            32'hC0A800FE,
+            16'd5555,
+            16'd53,
+            8'h11,
+            1'b1
+        );
+
+        // Adres spoza filtra
+        send_packet(
+            32'hDEADBEEF,
+            32'hC0A800FE,
+            16'd1000,
+            16'd80,
+            8'h06,
+            1'b0
+        );
+
+        #50;
+        $finish;
+    end
+
+endmodule

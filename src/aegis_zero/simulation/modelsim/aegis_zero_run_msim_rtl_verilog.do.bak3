@@ -1,0 +1,11 @@
+transcript on
+if {[file exists rtl_work]} {
+	vdel -lib rtl_work -all
+}
+vlib rtl_work
+vmap work rtl_work
+
+vlog -vlog01compat -work work +incdir+C:/intelFPGA_lite/20.1/aegis_zero {C:/intelFPGA_lite/20.1/aegis_zero/packet_parser.v}
+vlog -vlog01compat -work work +incdir+C:/intelFPGA_lite/20.1/aegis_zero {C:/intelFPGA_lite/20.1/aegis_zero/top_aegis_zero.v}
+vlog -vlog01compat -work work +incdir+C:/intelFPGA_lite/20.1/aegis_zero {C:/intelFPGA_lite/20.1/aegis_zero/bloom_filter.v}
+

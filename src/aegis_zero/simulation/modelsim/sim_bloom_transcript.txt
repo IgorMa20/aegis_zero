@@ -1,0 +1,71 @@
+# .
+# ** Error: Cannot change directory while a simulation is in progress.
+# Use the "quit -sim" command to unload the design first.
+# Error in macro ./sim_bloom.do line 4
+# Cannot change directory while a simulation is in progress.
+# Use the "quit -sim" command to unload the design first.
+#     while executing
+# "cd $SCRIPT_DIR"
+do sim_bloom.do
+# .
+# ** Error: Cannot change directory while a simulation is in progress.
+# Use the "quit -sim" command to unload the design first.
+# Error in macro ./sim_bloom.do line 4
+# Cannot change directory while a simulation is in progress.
+# Use the "quit -sim" command to unload the design first.
+#     while executing
+# "cd $SCRIPT_DIR"
+quit -sim
+# End time: 10:48:04 on May 19,2026, Elapsed time: 0:04:18
+# Errors: 2, Warnings: 0
+do sim_bloom.do
+# .
+# reading modelsim.ini
+# C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero
+# ModelSim working directory: C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/simulation/modelsim
+# Project directory: C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work work 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:48:10 on May 19,2026
+# vlog -reportprogress 300 -sv C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/bloom_filter.v 
+# -- Compiling module bloom_filter
+# 
+# Top level modules:
+# 	bloom_filter
+# End time: 10:48:10 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:48:10 on May 19,2026
+# vlog -reportprogress 300 -sv C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/tb_bloom_filter_checked.v 
+# -- Compiling module tb_bloom_filter_checked
+# 
+# Top level modules:
+# 	tb_bloom_filter_checked
+# End time: 10:48:10 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -voptargs="+acc" work.tb_bloom_filter_checked 
+# Start time: 10:48:10 on May 19,2026
+# Loading sv_std.std
+# Loading work.tb_bloom_filter_checked
+# Loading work.bloom_filter
+# PASS TP bram_rules[0]                 ip=010393ae bloom=1
+# PASS TP bram_rules[1]                 ip=01041f9f bloom=1
+# PASS TP bram_rules[2]                 ip=010b94af bloom=1
+# PASS FP candidate W2 recovery         ip=c0a80001 bloom=1
+# PASS TN deadbeef                      ip=deadbeef bloom=0
+# PASS edge 0.0.0.0                     ip=00000000 bloom=0
+# PASS edge 255.255.255.255             ip=ffffffff bloom=0
+# SUMMARY tb_bloom_filter_checked: pass=7 fail=0
+# ** Note: $finish    : C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/tb_bloom_filter_checked.v(88)
+#    Time: 171 ns  Iteration: 0  Instance: /tb_bloom_filter_checked
+# 1
+# Break in Module tb_bloom_filter_checked at C:/Users/Igor/Downloads/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero_poprawiony_v4/aegis_zero/tb_bloom_filter_checked.v line 88
+# 0 ps
+# 179550 ps
+
+quit -sim
+# End time: 10:49:12 on May 19,2026, Elapsed time: 0:01:02
+# Errors: 0, Warnings: 0
+do sim_top.do

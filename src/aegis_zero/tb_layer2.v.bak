@@ -1,0 +1,230 @@
+`timescale 1ns / 1ps
+// ============================================================
+// tb_layer2.v - AEGIS-ZERO Warstwa 2
+// Testbench jednostkowy toru: mphf_lookup -> bram_rule_memory
+//                             -> decision_unit
+//
+// Warstwa 1 (packet_parser, bloom_filter) jest pomijana.
+// Sygnal valid_in podawany jest bezposrednio do mphf_lookup,
+// co odpowiada sygnalowi (valid_bloom & bloom_pass) w top-level.
+//
+// Przypadki testowe zgodne z Tabela 11 (PDF):
+//   TC-W2-01..03  True Positive  -> ALLOW
+//   TC-W2-04..05  True Negative  -> DENY
+//   TC-W2-06      Adres 0.0.0.0  -> DENY
+//   TC-W2-07      255.255.255.255-> DENY
+//   TC-W2-08      Loopback       -> DENY
+//   TC-W2-09..10  False Positive -> DENY
+// ============================================================
+
+module tb_layer2;
+
+    // --------------------------------------------------------
+    // Sygnaly
+    // --------------------------------------------------------
+    reg         clk;
+    reg         valid_in;
+    reg  [31:0] src_ip;
+
+    // mphf_lookup -> bram_rule_memory
+    wire        valid_lhd;
+    wire [13:0] lhd;
+    wire [31:0] src_ip_after_mphf;
+
+    // bram_rule_memory -> decision_unit
+    wire        valid_bram;
+    wire [31:0] src_ip_after_bram;
+    wire [31:0] stored_ip;
+
+    // decision_unit -> wynik
+    wire        valid_out;
+    wire        decision;
+
+    // liczniki
+    integer pass_count;
+    integer fail_count;
+    integer timeout_count;
+
+    // --------------------------------------------------------
+    // Instancje modulow Warstwy 2
+    // --------------------------------------------------------
+    mphf_lookup u_mphf_lookup (
+        .clk        (clk),
+        .valid_in   (valid_in),
+        .dst_ip     (src_ip),
+        .valid_out  (valid_lhd),
+        .idx        (lhd),
+        .dst_ip_out (src_ip_after_mphf)
+    );
+
+    bram_rule_memory u_bram_rule_memory (
+        .clk        (clk),
+        .valid_in   (valid_lhd),
+        .idx        (lhd),
+        .dst_ip_in  (src_ip_after_mphf),
+        .valid_out  (valid_bram),
+        .dst_ip_out (src_ip_after_bram),
+        .stored_ip  (stored_ip)
+    );
+
+    decision_unit u_decision_unit (
+        .clk        (clk),
+        .valid_in   (valid_bram),
+        .dst_ip     (src_ip_after_bram),
+        .stored_ip  (stored_ip),
+        .valid_out  (valid_out),
+        .decision   (decision)
+    );
+
+    // --------------------------------------------------------
+    // Zegar: okres 10 ns (100 MHz)
+    // --------------------------------------------------------
+    always #5 clk = ~clk;
+
+    // --------------------------------------------------------
+    // Task: czekaj na valid_out z timeoutem
+    // Potok Warstwy 2 ma 4 cykle: mphf(2) + bram(1) + dec(1)
+    // Timeout ustawiamy na 10 cykli z zapasem.
+    // --------------------------------------------------------
+    task wait_for_valid_out;
+        begin
+            timeout_count = 0;
+            #1;
+            while ((valid_out !== 1'b1) && (timeout_count < 10)) begin
+                @(posedge clk);
+                #1;
+                timeout_count = timeout_count + 1;
+            end
+        end
+    endtask
+
+    // --------------------------------------------------------
+    // Task: wysij jeden pakiet i sprawdz decyzje
+    //
+    //   ip              - adres zrodlowy src_ip
+    //   expected_dec    - oczekiwana decyzja (1=ALLOW, 0=DENY)
+    //   name            - etykieta do wydruku
+    // --------------------------------------------------------
+    task send_and_check;
+        input [31:0]  ip;
+        input         expected_dec;
+        input [255:0] name;
+        begin
+            // Podaj dane na negedge, zeby byly stabilne przed posedge
+            @(negedge clk);
+            src_ip   = ip;
+            valid_in = 1'b1;
+
+            @(negedge clk);
+            valid_in = 1'b0;
+
+            // Czekaj az potok wyprodukuje wynik
+            wait_for_valid_out();
+
+            if (valid_out !== 1'b1) begin
+                $display("FAIL %-36s ip=%h  timeout waiting for valid_out",
+                         name, ip);
+                fail_count = fail_count + 1;
+            end else if (decision !== expected_dec) begin
+                $display("FAIL %-36s ip=%h  expected=%b got=%b  lhd=%0d stored_ip=%h",
+                         name, ip, expected_dec, decision, lhd, stored_ip);
+                fail_count = fail_count + 1;
+            end else begin
+                $display("PASS %-36s ip=%h  decision=%b  lhd=%0d stored_ip=%h",
+                         name, ip, decision, lhd, stored_ip);
+                pass_count = pass_count + 1;
+            end
+
+            // Odstep miedzy pakietami: 2 cykle
+            repeat (2) @(negedge clk);
+        end
+    endtask
+
+    // --------------------------------------------------------
+    // Glowny blok testowy
+    // --------------------------------------------------------
+    initial begin
+        // Inicjalizacja
+        clk        = 1'b0;
+        valid_in   = 1'b0;
+        src_ip     = 32'h00000000;
+        pass_count = 0;
+        fail_count = 0;
+        timeout_count = 0;
+
+        // Odczekaj kilka cykli na ustabilizowanie pamieci
+        repeat (4) @(negedge clk);
+
+        // ----------------------------------------------------
+        // TC-W2-01..03: True Positive – adresy z bram_rules
+        // Adresy [0],[1],[2] to pierwsze wpisy z bram_rules.hex,
+        // wygenerowane przez gen_mphf.py. LHD powinno byc 0,1,2.
+        // ----------------------------------------------------
+        $display("--- TC-W2-01..03: True Positive -> ALLOW ---");
+        send_and_check(32'h010393ae, 1'b1, "TC-W2-01 TP bram_rules[0]");
+        send_and_check(32'h01041f9f, 1'b1, "TC-W2-02 TP bram_rules[1]");
+        send_and_check(32'h010b94af, 1'b1, "TC-W2-03 TP bram_rules[2]");
+
+        // ----------------------------------------------------
+        // TC-W2-04..05: True Negative – adresy spoza bazy
+        // MPHF zwroci jakis indeks, ale stored_ip != src_ip
+        // ----------------------------------------------------
+        $display("--- TC-W2-04..05: True Negative -> DENY ---");
+        send_and_check(32'hdeadbeef, 1'b0, "TC-W2-04 TN deadbeef");
+        send_and_check(32'hc0ffee00, 1'b0, "TC-W2-05 TN c0ffee00");
+
+        // ----------------------------------------------------
+        // TC-W2-06: Adres 0.0.0.0 – komorka niezainicjalizowana
+        // decision_unit wymaga dst_ip != 0, wiec -> DENY
+        // ----------------------------------------------------
+        $display("--- TC-W2-06: Adres 0.0.0.0 -> DENY ---");
+        send_and_check(32'h00000000, 1'b0, "TC-W2-06 EDGE 0.0.0.0");
+
+        // ----------------------------------------------------
+        // TC-W2-07: Adres broadcast 255.255.255.255 -> DENY
+        // ----------------------------------------------------
+        $display("--- TC-W2-07: Adres 255.255.255.255 -> DENY ---");
+        send_and_check(32'hffffffff, 1'b0, "TC-W2-07 EDGE 255.255.255.255");
+
+        // ----------------------------------------------------
+        // TC-W2-08: Adres loopback 127.0.0.1 -> DENY
+        // ----------------------------------------------------
+        $display("--- TC-W2-08: Loopback 127.0.0.1 -> DENY ---");
+        send_and_check(32'h7f000001, 1'b0, "TC-W2-08 EDGE loopback");
+
+        // ----------------------------------------------------
+        // TC-W2-09..10: False Positive Warstwy 1
+        // Adresy przepuszczone przez filtr Blooma, ale nieobecne
+        // w bazie. MPHF zwraca indeks, lecz stored_ip != src_ip
+        // -> decision_unit wystawia DENY (korekta FP).
+        // ----------------------------------------------------
+        $display("--- TC-W2-09..10: False Positive -> DENY ---");
+        send_and_check(32'haabbccdd, 1'b0, "TC-W2-09 FP aabbccdd");
+        send_and_check(32'h12345678, 1'b0, "TC-W2-10 FP 12345678");
+
+        // ----------------------------------------------------
+        // Dodatkowe True Positive dla wiekszego pokrycia
+        // ----------------------------------------------------
+        $display("--- Dodatkowe True Positive ---");
+        send_and_check(32'h010d438f, 1'b1, "TP bram_rules[3]");
+        send_and_check(32'h011cbc1a, 1'b1, "TP bram_rules[4]");
+
+        // ----------------------------------------------------
+        // Dodatkowe False Positive
+        // ----------------------------------------------------
+        $display("--- Dodatkowe False Positive -> DENY ---");
+        send_and_check(32'hfedcba98, 1'b0, "FP fedcba98");
+        send_and_check(32'h0a0b0c0d, 1'b0, "FP 0a0b0c0d");
+
+        // ----------------------------------------------------
+        // Podsumowanie
+        // ----------------------------------------------------
+        $display("");
+        $display("SUMMARY tb_layer2: pass=%0d fail=%0d",
+                 pass_count, fail_count);
+        if (fail_count != 0)
+            $stop;
+        $finish;
+    end
+
+endmodule

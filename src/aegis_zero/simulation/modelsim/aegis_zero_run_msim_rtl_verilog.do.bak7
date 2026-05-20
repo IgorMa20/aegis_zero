@@ -1,0 +1,14 @@
+transcript on
+if {[file exists rtl_work]} {
+	vdel -lib rtl_work -all
+}
+vlib rtl_work
+vmap work rtl_work
+
+vlog -vlog01compat -work work +incdir+D:/Pobrane_D/aegis_zero/aegis_zero {D:/Pobrane_D/aegis_zero/aegis_zero/decision_unit.v}
+vlog -vlog01compat -work work +incdir+D:/Pobrane_D/aegis_zero/aegis_zero {D:/Pobrane_D/aegis_zero/aegis_zero/packet_parser.v}
+vlog -vlog01compat -work work +incdir+D:/Pobrane_D/aegis_zero/aegis_zero {D:/Pobrane_D/aegis_zero/aegis_zero/top_aegis_zero.v}
+vlog -vlog01compat -work work +incdir+D:/Pobrane_D/aegis_zero/aegis_zero {D:/Pobrane_D/aegis_zero/aegis_zero/bram_rule_memory.v}
+vlog -vlog01compat -work work +incdir+D:/Pobrane_D/aegis_zero/aegis_zero {D:/Pobrane_D/aegis_zero/aegis_zero/mphf_lookup.v}
+vlog -vlog01compat -work work +incdir+D:/Pobrane_D/aegis_zero/aegis_zero {D:/Pobrane_D/aegis_zero/aegis_zero/bloom_filter.v}
+

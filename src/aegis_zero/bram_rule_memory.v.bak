@@ -1,0 +1,34 @@
+`timescale 1ns / 1ps
+// ============================================================
+// bram_rule_memory.v – AEGIS-ZERO Warstwa 2
+// Pamięć reguł BRAM: 10 000 wpisów × 32 bity
+// Każdy wpis = autoryzowany adres IPv4 pod indeksem MPHF
+// Adresowana indeksem lhd z mphf_lookup
+// Opóźnienie: 1 cykl zegarowy (synchroniczny odczyt)
+// ============================================================
+module bram_rule_memory (
+    input  wire        clk,
+    input  wire        valid_in,
+    input  wire [13:0] idx,        // LHD z mphf_lookup [0..9999]
+    input  wire [31:0] dst_ip_in,  // src_ip z potoku
+
+    output reg         valid_out,
+    output reg  [31:0] dst_ip_out, // src_ip przekazane dalej
+    output reg  [31:0] stored_ip   // adres IP odczytany z BRAM
+);
+    parameter N_RULES = 10000;
+
+    // ── Pamięć BRAM reguł ──────────────────────────────────────
+    reg [31:0] rules_ram [0:N_RULES-1];
+    initial begin
+        $readmemh("bram_rules.hex", rules_ram);
+    end
+
+    // ── Synchroniczny odczyt (1 cykl opóźnienia) ──────────────
+    always @(posedge clk) begin
+        stored_ip  <= rules_ram[idx];
+        valid_out  <= valid_in;
+        dst_ip_out <= dst_ip_in;
+    end
+
+endmodule

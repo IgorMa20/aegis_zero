@@ -1,0 +1,9 @@
+# Auto-generated/repaired script for Quartus NativeLink RTL Simulation.
+# Quartus uruchamia ModelSim w katalogu simulation/modelsim; ten skrypt
+# od razu odpala poprawny test integracyjny Osoby 4.
+transcript on
+set SCRIPT_DIR [file dirname [file normalize [info script]]]
+cd $SCRIPT_DIR
+puts "ModelSim uruchomiony w: [pwd]"
+puts "Domyslnie uruchamiam: do sim_top.do"
+do sim_top.do

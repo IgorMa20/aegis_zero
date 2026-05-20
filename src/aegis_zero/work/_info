@@ -1,0 +1,90 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/milos/Downloads/aegis_zero_poprawiony_v3/aegis_zero_poprawiony_v3/aegis_zero
+vbram_rule_memory
+!s110 1779105823
+!i10b 1
+!s100 `cUP6jeLT[LIeb?h`XHGO2
+IY0K2TX@<I]QGDgGzcnoD`0
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z2 w1779100439
+8bram_rule_memory.v
+Fbram_rule_memory.v
+L0 8
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1779105823.000000
+!s107 bram_rule_memory.v|
+!s90 -reportprogress|300|bram_rule_memory.v|
+!i113 1
+Z4 tCvgOpt 0
+vdecision_unit
+!s110 1779105830
+!i10b 1
+!s100 Q=4E2mXd;XMcQ9DP1m];e3
+InE8@7FNHSj:@HB?4]GM_;1
+R1
+R0
+R2
+8decision_unit.v
+Fdecision_unit.v
+L0 15
+R3
+r1
+!s85 0
+31
+!s108 1779105830.000000
+!s107 decision_unit.v|
+!s90 -reportprogress|300|decision_unit.v|
+!i113 1
+R4
+vmphf_lookup
+!s110 1779105819
+!i10b 1
+!s100 l<<5j8>^>[HE7EZ88@PJ@1
+I6gC^6oc5FDcc5d5YU=Ce<2
+R1
+R0
+R2
+8mphf_lookup.v
+Fmphf_lookup.v
+L0 9
+R3
+r1
+!s85 0
+31
+!s108 1779105819.000000
+!s107 mphf_lookup.v|
+!s90 -reportprogress|300|mphf_lookup.v|
+!i113 1
+R4
+vtb_layer2
+!s110 1779105835
+!i10b 1
+!s100 zH3c6LNJB]ePXmA=AeaF11
+IoE_m7:A?6jZI;V7Y8jGhd3
+R1
+R0
+w1779104842
+8tb_layer2.v
+Ftb_layer2.v
+L0 4
+R3
+r1
+!s85 0
+31
+!s108 1779105835.000000
+!s107 tb_layer2.v|
+!s90 -reportprogress|300|tb_layer2.v|
+!i113 1
+R4

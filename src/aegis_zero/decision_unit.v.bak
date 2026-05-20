@@ -1,0 +1,38 @@
+`timescale 1ns / 1ps
+// ============================================================
+// decision_unit.v – AEGIS-ZERO Warstwa 2
+// Końcowa weryfikacja i decyzja ALLOW/DENY
+//
+// Logika:
+//   stored_ip == dst_ip AND dst_ip != 0 -> ALLOW (decision=1)
+//   stored_ip != dst_ip OR  dst_ip == 0 -> DENY  (decision=0)
+//
+// Przypadek dst_ip == 0 oznacza pusty wpis w BRAM (adres nigdy
+// nie był wstawiony) – gwarantowane DENY.
+//
+// Przypadek stored_ip != dst_ip przy bloom_pass=1 to false positive
+// filtra Bloom'a – Warstwa 2 koryguje błąd i wystawia DENY.
+// ============================================================
+module decision_unit (
+    input  wire        clk,
+    input  wire        valid_in,
+    input  wire [31:0] dst_ip,     // src_ip z pakietu (z potoku)
+    input  wire [31:0] stored_ip,  // IP odczytane z BRAM
+
+    output reg         valid_out,
+    output reg         decision    // 1 = ALLOW, 0 = DENY
+);
+    always @(posedge clk) begin
+        valid_out <= valid_in;
+        if (valid_in) begin
+            // ALLOW tylko gdy adresy zgodne i nie są zerowe
+            if ((dst_ip == stored_ip) && (dst_ip != 32'h00000000))
+                decision <= 1'b1;
+            else
+                decision <= 1'b0;
+        end else begin
+            decision <= 1'b0;
+        end
+    end
+
+endmodule

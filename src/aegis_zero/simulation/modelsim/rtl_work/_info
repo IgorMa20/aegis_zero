@@ -1,0 +1,164 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/simulation/modelsim
+vbloom_filter
+Z1 !s110 1779201454
+!i10b 1
+!s100 LUOC@kecL8lC3OEPA[2?]2
+I4SV[mGLA3ZE25KTlY3cg]3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1779196394
+8C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bloom_filter.v
+FC:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bloom_filter.v
+Z4 L0 39
+Z5 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z6 !s108 1779201454.000000
+!s107 C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bloom_filter.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero|C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bloom_filter.v|
+!i113 1
+Z7 o-vlog01compat -work work
+Z8 !s92 -vlog01compat -work work +incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero
+Z9 tCvgOpt 0
+vbram_rule_memory
+Z10 !s110 1779201453
+!i10b 1
+!s100 BH8g3X?M1VC`SnS=:^gLf0
+I016Y2Ph[m:Z=UFJbkjYMc2
+R2
+R0
+R3
+8C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bram_rule_memory.v
+FC:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bram_rule_memory.v
+L0 18
+R5
+r1
+!s85 0
+31
+Z11 !s108 1779201453.000000
+!s107 C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bram_rule_memory.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero|C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bram_rule_memory.v|
+!i113 1
+R7
+R8
+R9
+vdecision_unit
+R10
+!i10b 1
+!s100 aUEUd7df<TjQ=1kFZB:gP1
+IM02GDD9J2[[3j>fN=F8mT2
+R2
+R0
+R3
+8C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/decision_unit.v
+FC:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/decision_unit.v
+L0 28
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/decision_unit.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero|C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/decision_unit.v|
+!i113 1
+R7
+R8
+R9
+vmphf_lookup
+R10
+!i10b 1
+!s100 3V1@Xz@;<0nTDX<idd>5E3
+IM^YlTgk`HjT8Mnz8@BC[Y0
+R2
+R0
+w1779198757
+8C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/mphf_lookup.v
+FC:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/mphf_lookup.v
+L0 14
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/mphf_lookup.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero|C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/mphf_lookup.v|
+!i113 1
+R7
+R8
+R9
+vpacket_parser
+R10
+!i10b 1
+!s100 7mVD<;[YO_k0LCX@DO9;g3
+ILAEG;b<bkh521[3O<oN0j0
+R2
+R0
+R3
+8C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/packet_parser.v
+FC:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/packet_parser.v
+L0 1
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/packet_parser.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero|C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/packet_parser.v|
+!i113 1
+R7
+R8
+R9
+vtb_aegis_zero_top
+R1
+!i10b 1
+!s100 M;;;Z9]T<]l2_3EVKe8D?1
+IdZ98BMhWHe@F`K8=6Zlfj2
+R2
+R0
+R3
+8C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/tb_aegis_zero_top.v
+FC:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/tb_aegis_zero_top.v
+L0 2
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/tb_aegis_zero_top.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero|C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/tb_aegis_zero_top.v|
+!i113 1
+R7
+R8
+R9
+vtop_aegis_zero
+R10
+!i10b 1
+!s100 Y9K]mAE:WD`?z]mGU;:bg2
+IK3`PT0eFJ2nJ?ajhzS_PC1
+R2
+R0
+R3
+8C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/top_aegis_zero.v
+FC:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/top_aegis_zero.v
+R4
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/top_aegis_zero.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero|C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/top_aegis_zero.v|
+!i113 1
+R7
+R8
+R9

@@ -1,0 +1,130 @@
+# Reading C:/intelFPGA_lite/19.1/modelsim_ase/tcl/vsim/pref.tcl
+# do aegis_zero_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/19.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero {C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/decision_unit.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:37:33 on May 19,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero" C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/decision_unit.v 
+# -- Compiling module decision_unit
+# 
+# Top level modules:
+# 	decision_unit
+# End time: 16:37:33 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero {C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/packet_parser.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:37:33 on May 19,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero" C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/packet_parser.v 
+# -- Compiling module packet_parser
+# 
+# Top level modules:
+# 	packet_parser
+# End time: 16:37:33 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero {C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/top_aegis_zero.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:37:33 on May 19,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero" C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/top_aegis_zero.v 
+# -- Compiling module top_aegis_zero
+# 
+# Top level modules:
+# 	top_aegis_zero
+# End time: 16:37:33 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero {C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bram_rule_memory.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:37:33 on May 19,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero" C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bram_rule_memory.v 
+# -- Compiling module bram_rule_memory
+# 
+# Top level modules:
+# 	bram_rule_memory
+# End time: 16:37:33 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero {C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/mphf_lookup.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:37:33 on May 19,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero" C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/mphf_lookup.v 
+# -- Compiling module mphf_lookup
+# 
+# Top level modules:
+# 	mphf_lookup
+# End time: 16:37:33 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero {C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bloom_filter.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:37:34 on May 19,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero" C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/bloom_filter.v 
+# -- Compiling module bloom_filter
+# 
+# Top level modules:
+# 	bloom_filter
+# End time: 16:37:34 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -vlog01compat -work work +incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero {C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/tb_aegis_zero_top.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:37:34 on May 19,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero" C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/tb_aegis_zero_top.v 
+# -- Compiling module tb_aegis_zero_top
+# 
+# Top level modules:
+# 	tb_aegis_zero_top
+# End time: 16:37:34 on May 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -voptargs="+acc"  tb_aegis_zero_top
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -voptargs=""+acc"" tb_aegis_zero_top 
+# Start time: 16:37:34 on May 19,2026
+# Loading work.tb_aegis_zero_top
+# Loading work.top_aegis_zero
+# Loading work.packet_parser
+# Loading work.bloom_filter
+# Loading work.mphf_lookup
+# Loading work.bram_rule_memory
+# Loading work.decision_unit
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# SC_TP: True Positive -> ALLOW
+# PASS True Positive bram_rules[0]      ip=010393ae bloom=0 decision=1 lhd=9652 stored_ip=d89578a8
+# PASS True Positive bram_rules[1]      ip=01041f9f bloom=0 decision=1 lhd=9652 stored_ip=d89578a8
+# SC_TN: True Negative -> DENY
+# PASS True Negative deadbeef           ip=deadbeef bloom=0 decision=0 lhd=9652 stored_ip=d89578a8
+# SC_FP: False Positive Recovery / bledny LHD -> DENY
+# PASS False Positive recovery          ip=c0a80001 bloom=0 decision=0 lhd=9652 stored_ip=d89578a8
+# SC_EDGE: adresy brzegowe -> DENY
+# PASS 0.0.0.0                          ip=00000000 bloom=0 decision=0 lhd=9652 stored_ip=d89578a8
+# PASS 255.255.255.255                  ip=ffffffff bloom=0 decision=0 lhd=9652 stored_ip=d89578a8
+# SC_PIPE: ciag pakietow co cykl
+# PASS SC_PIPE output[0] decision=1
+# PASS SC_PIPE output[1] decision=0
+# PASS SC_PIPE output[2] decision=0
+# PASS SC_PIPE output[3] decision=1
+# SUMMARY tb_aegis_zero_top: pass=10 fail=0
+# ** Note: $finish    : C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/tb_aegis_zero_top.v(199)
+#    Time: 826 ns  Iteration: 0  Instance: /tb_aegis_zero_top
+# 1
+# Break in Module tb_aegis_zero_top at C:/Users/milos/Downloads/aegis_zero_v5/aegis_zero/tb_aegis_zero_top.v line 199
+add wave
+# wrong number of args for "add wave".
+# Usage: add wave [-allowconstants] [-clampanalog {0|1}] [-color <standard_color_name>] [-depth <level>] [-divider <divider_name>...] [-expand <signal_name>] [-filter <f> | -nofilter <f>] [-format <type> | -<format>] [-group <group_name> [<sig_name1>...]] [-height <pixels>] [[-in] [-out] [-inout] | [-ports]] [-internal] [-label <name>] [-max <real_num>] [-min <real_num>] [-noupdate] [-numdynitem <int>] [-position <location>] [-queueends] [-radix <type> | -<radix_type>] [-radixenumnumeric | -radixenumsymbolic] [-recursive] [-startdynitem <int>] [-time] [<object_name>...] [{<object_name> {sig1 sig2 ...}}] 
+add wave -r
+# Missing signal name or pattern.
+add wave -in
+# Missing signal name or pattern.
+# End time: 16:58:34 on May 19,2026, Elapsed time: 0:21:00
+# Errors: 3, Warnings: 0
