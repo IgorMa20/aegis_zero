@@ -17,13 +17,16 @@ module bram_rule_memory (
 );
     parameter N_RULES = 10000;
 
-    reg [31:0] rules_ram [0:N_RULES-1];
+    (* ramstyle = "M9K" *) reg [31:0] rules_ram [0:N_RULES-1];
     initial begin
         $readmemh("bram_rules.hex", rules_ram);
     end
 
-		 always @(posedge clk) begin
-			  if (rst) begin
+    // Uwaga: stored_ip nie jest resetowane celowo — M9K w Cyclone IV E
+    // nie obsluguje synchronicznego resetu na rejestrze danych wyjsciowych
+    // RAM-a. Reset na stored_ip blokuje inferencje M9K i wymusza LE.
+    always @(posedge clk) begin
+        if (rst) begin
             valid_out  <= 1'b0;
             src_ip_out <= 32'h0;
         end else begin

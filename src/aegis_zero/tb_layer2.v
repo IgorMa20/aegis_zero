@@ -4,6 +4,7 @@
 module tb_layer2;
 
     reg         clk;
+    reg         rst;
     reg         valid_in;
     reg  [31:0] src_ip;
 
@@ -24,6 +25,7 @@ module tb_layer2;
 
     mphf_lookup u_mphf_lookup (
         .clk        (clk),
+        .rst        (rst),
         .valid_in   (valid_in),
         .src_ip     (src_ip),
         .valid_out  (valid_lhd),
@@ -33,6 +35,7 @@ module tb_layer2;
 
     bram_rule_memory u_bram_rule_memory (
         .clk        (clk),
+        .rst        (rst),
         .valid_in   (valid_lhd),
         .idx        (lhd),
         .src_ip_in  (src_ip_after_mphf),
@@ -43,6 +46,7 @@ module tb_layer2;
 
     decision_unit u_decision_unit (
         .clk        (clk),
+        .rst        (rst),
         .valid_in   (valid_bram),
         .src_ip     (src_ip_after_bram),
         .stored_ip  (stored_ip),
@@ -98,6 +102,7 @@ module tb_layer2;
 
     initial begin
         clk        = 1'b0;
+        rst        = 1'b1;
         valid_in   = 1'b0;
         src_ip     = 32'h00000000;
         pass_count = 0;
@@ -105,6 +110,8 @@ module tb_layer2;
         timeout_count = 0;
 
         repeat (4) @(negedge clk);
+        rst = 1'b0;
+        repeat (1) @(negedge clk);
 
         $display("--- TC-W2-01..03: True Positive -> ALLOW ---");
         send_and_check(32'h010393ae, 1'b1, "TC-W2-01 TP bram_rules[0]");

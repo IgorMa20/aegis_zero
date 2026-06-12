@@ -22,8 +22,8 @@ module mphf_lookup (
     parameter G_SIZE  = 16384;
     parameter N_RULES = 10000;
 
-    reg [31:0] g1_ram [0:G_SIZE-1];
-    reg [31:0] g2_ram [0:G_SIZE-1];
+    (* ramstyle = "M9K" *) reg [31:0] g1_ram [0:G_SIZE-1];
+    (* ramstyle = "M9K" *) reg [31:0] g2_ram [0:G_SIZE-1];
     initial begin
         $readmemh("g1.hex", g1_ram);
         $readmemh("g2.hex", g2_ram);
@@ -45,24 +45,36 @@ module mphf_lookup (
     wire [13:0] addr2  = h2_val[13:0];
 
     // -----------------------------------------------------------
-    // Etap potoku 1: synchroniczny odczyt g1/g2 i opoznienie src_ip
-    // Wartosci w g1/g2 z gen_mphf.py mieszcza sie w [0, 9999],
-    // dlatego wystarczy zarejestrowac 14 mlodszych bitow.
+    // Etap potoku 1: synchroniczny odczyt g1/g2 z BRAM (M9K).
+    //
+    // RAM-y g1/g2 maja wlasny always-block bez resetu i bez bit-slice
+    // w odczycie. To jest kanoniczny wzorzec inferencji M9K w Cyclone IV E:
+    //   1) brak reset wyzwala on data output (M9K nie obsluguje sync rst),
+    //   2) odczyt pelnego slowa - bit-slice [13:0] przesuniety na wyjscie.
+    // Wartosci w g1/g2 z gen_mphf.py mieszcza sie w [0, 9999], wiec
+    // jedynie 14 najmlodszych bitow ma znaczenie semantyczne.
+    // -----------------------------------------------------------
+    reg [31:0] g1_word;
+    reg [31:0] g2_word;
+    always @(posedge clk) begin
+        g1_word <= g1_ram[addr1];
+        g2_word <= g2_ram[addr2];
+    end
+
+    wire [13:0] g1_data = g1_word[13:0];
+    wire [13:0] g2_data = g2_word[13:0];
+
+    // -----------------------------------------------------------
+    // Side-band channel (valid + src_ip) zsynchronizowany z odczytem
+    // RAM - osobny rejestr z resetem, niezalezny od inferencji M9K.
     // -----------------------------------------------------------
     reg        valid_r1;
     reg [31:0] src_ip_r1;
-    reg [13:0] g1_data;
-    reg [13:0] g2_data;
-
     always @(posedge clk) begin
         if (rst) begin
             valid_r1  <= 1'b0;
             src_ip_r1 <= 32'h0;
-            g1_data   <= 14'h0;
-            g2_data   <= 14'h0;
         end else begin
-            g1_data   <= g1_ram[addr1][13:0];
-            g2_data   <= g2_ram[addr2][13:0];
             valid_r1  <= valid_in;
             src_ip_r1 <= src_ip;
         end

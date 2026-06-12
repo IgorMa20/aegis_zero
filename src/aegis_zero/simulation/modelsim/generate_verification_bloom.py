@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-Generuje bloom_filter.hex dla wariantu mixed filtra Bloom'a.
+Generuje bloom_filter.hex dla wariantu mixed filtra Bloom'a (v5: 32K bitow).
 
 Wariant mixed:
-- używa funkcji mix32 zgodnej z implementacją w bloom_filter.v,
-- filtr ma 2048 bitów,
-- pamięć ma 64 słowa po 32 bity,
+- używa funkcji mix32 zgodnej z implementacją w bloom_filter.v (v5),
+- filtr ma 32768 bitów (16x wieksze niz v4),
+- pamięć ma 1024 słowa po 32 bity,
+- indeksy hashowe maja 15 bitow (vs 11 w v4),
 - do filtra wpisywane są:
   * trzy pierwsze adresy z bram_rules.hex,
   * adres 0xC0A80001 jako kandydat do False Positive Recovery.
@@ -14,13 +15,13 @@ Uruchomienie:
     python generate_verification_bloom.py
 
 Wynik:
-    bloom_filter.hex
+    bloom_filter.hex (1024 linie x 8 cyfr hex)
 """
 
 from pathlib import Path
 
-BLOOM_WORDS = 64
-BLOOM_BITS = 2048
+BLOOM_WORDS = 1024
+BLOOM_BITS = 32768
 MASK32 = 0xFFFFFFFF
 
 FALSE_POSITIVE_IP = 0xC0A80001
@@ -46,15 +47,18 @@ def mix32(x: int) -> int:
 
 
 def hash0(ip: int) -> int:
-    return mix32(ip ^ 0xA5A5A5A5) & 0x7FF
+    # v5: 15-bitowy indeks dla BLOOM_BITS=32768
+    return mix32(ip ^ 0xA5A5A5A5) & 0x7FFF
 
 
 def hash1(ip: int) -> int:
-    return mix32(ip ^ 0x3C3C3C3C) & 0x7FF
+    # v5: 15-bitowy indeks dla BLOOM_BITS=32768
+    return mix32(ip ^ 0x3C3C3C3C) & 0x7FFF
 
 
 def hash2(ip: int) -> int:
-    return mix32(ip ^ 0x5A5A5A5A) & 0x7FF
+    # v5: 15-bitowy indeks dla BLOOM_BITS=32768
+    return mix32(ip ^ 0x5A5A5A5A) & 0x7FFF
 
 
 def add_ip(mem, ip: int) -> None:

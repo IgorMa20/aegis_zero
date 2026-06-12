@@ -1,16 +1,16 @@
-Fitter Status : Successful - Tue May 19 16:04:45 2026
-Quartus Prime Version : 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Fitter Status : Successful - Fri Jun 12 23:57:38 2026
+Quartus Prime Version : 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 Revision Name : aegis_zero
-Top-level Entity Name : top_aegis_zero
+Top-level Entity Name : aegis_zero_de2_115
 Family : Cyclone IV E
 Device : EP4CE115F29C7
 Timing Models : Final
-Total logic elements : 26,483 / 114,480 ( 23 % )
-    Total combinational functions : 26,474 / 114,480 ( 23 % )
-    Dedicated logic registers : 423 / 114,480 ( < 1 % )
-Total registers : 423
-Total pins : 264 / 529 ( 50 % )
+Total logic elements : 11,392 / 114,480 ( 10 % )
+    Total combinational functions : 11,237 / 114,480 ( 10 % )
+    Dedicated logic registers : 2,226 / 114,480 ( 2 % )
+Total registers : 2226
+Total pins : 106 / 529 ( 20 % )
 Total virtual pins : 0
-Total memory bits : 320,000 / 3,981,312 ( 8 % )
+Total memory bits : 778,752 / 3,981,312 ( 20 % )
 Embedded Multiplier 9-bit elements : 36 / 532 ( 7 % )
-Total PLLs : 0 / 4 ( 0 % )
+Total PLLs : 1 / 4 ( 25 % )

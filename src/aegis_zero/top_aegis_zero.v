@@ -9,9 +9,13 @@
 // - bloom_pass=1 uruchamia Warstwe 2,
 // - Warstwa 2 koryguje false positive: stored_ip != src_ip -> DENY.
 //
-// Lacze opoznienia toru:
-//   packet_parser (1) + bloom_filter (4) + mphf_lookup (2)
-//   + bram_rule_memory (1) + decision_unit (1) = 9 cykli.
+// Lacze opoznienia toru (v4 = potokowanie mix32 z rozdzielonym multiply):
+//   packet_parser (1) + bloom_filter (6) + mphf_lookup (2)
+//   + bram_rule_memory (1) + decision_unit (1) = 11 cykli.
+//
+// deny_valid_pipe pozostaje 4-bitowe - obie sciezki (DENY i ALLOW)
+// startuja z tego samego punktu (valid_bloom), wiec glebsze potokowanie
+// Warstwy 1 przesuwa je razem; offset Warstwy 2 (4 cykle) sie nie zmienia.
 // ============================================================
 module top_aegis_zero (
     input  wire        clk,

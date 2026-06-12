@@ -9,6 +9,7 @@
 // ============================================================
 module tb_mphf_lookup;
     reg clk;
+    reg rst;
     reg valid_in;
     reg [31:0] src_ip;
 
@@ -22,6 +23,7 @@ module tb_mphf_lookup;
 
     mphf_lookup uut (
         .clk(clk),
+        .rst(rst),
         .valid_in(valid_in),
         .src_ip(src_ip),
         .valid_out(valid_out),
@@ -101,13 +103,16 @@ module tb_mphf_lookup;
 
     initial begin
         clk = 1'b0;
+        rst = 1'b1;
         valid_in = 1'b0;
         src_ip = 32'h00000000;
         pass_count = 0;
         fail_count = 0;
         timeout_count = 0;
 
-        repeat (2) @(negedge clk);
+        repeat (3) @(negedge clk);
+        rst = 1'b0;
+        repeat (1) @(negedge clk);
 
         // Wektory referencyjne z gen_mphf.py
         check_idx(32'h010393ae, 14'd0, "MPHF bram_rules[0]");

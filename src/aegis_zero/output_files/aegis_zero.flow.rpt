@@ -1,6 +1,6 @@
 Flow report for aegis_zero
-Tue May 19 16:05:20 2026
-Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Fri Jun 12 23:57:52 2026
+Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
 ---------------------
@@ -21,7 +21,7 @@ Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2019  Intel Corporation. All rights reserved.
+Copyright (C) 2020  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
@@ -41,22 +41,22 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Tue May 19 16:05:20 2026       ;
-; Quartus Prime Version              ; 19.1.0 Build 670 09/22/2019 SJ Lite Edition ;
+; Flow Status                        ; Successful - Fri Jun 12 23:57:52 2026       ;
+; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; aegis_zero                                  ;
-; Top-level Entity Name              ; top_aegis_zero                              ;
+; Top-level Entity Name              ; aegis_zero_de2_115                          ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE115F29C7                               ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 26,483 / 114,480 ( 23 % )                   ;
-;     Total combinational functions  ; 26,474 / 114,480 ( 23 % )                   ;
-;     Dedicated logic registers      ; 423 / 114,480 ( < 1 % )                     ;
-; Total registers                    ; 423                                         ;
-; Total pins                         ; 264 / 529 ( 50 % )                          ;
+; Total logic elements               ; 11,392 / 114,480 ( 10 % )                   ;
+;     Total combinational functions  ; 11,237 / 114,480 ( 10 % )                   ;
+;     Dedicated logic registers      ; 2,226 / 114,480 ( 2 % )                     ;
+; Total registers                    ; 2226                                        ;
+; Total pins                         ; 106 / 529 ( 20 % )                          ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 320,000 / 3,981,312 ( 8 % )                 ;
+; Total memory bits                  ; 778,752 / 3,981,312 ( 20 % )                ;
 ; Embedded Multiplier 9-bit elements ; 36 / 532 ( 7 % )                            ;
-; Total PLLs                         ; 0 / 4 ( 0 % )                               ;
+; Total PLLs                         ; 1 / 4 ( 25 % )                              ;
 +------------------------------------+---------------------------------------------+
 
 
@@ -65,41 +65,51 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/19/2026 15:52:41 ;
+; Start date & time ; 06/12/2026 23:54:29 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; aegis_zero          ;
 +-------------------+---------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                   ;
-+--------------------------------------+----------------------------------------+---------------+----------------+-------------------+
-; Assignment Name                      ; Value                                  ; Default Value ; Entity Name    ; Section Id        ;
-+--------------------------------------+----------------------------------------+---------------+----------------+-------------------+
-; COMPILER_SIGNATURE_ID                ; 39908817099655.177919876014496         ; --            ; --             ; --                ;
-; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --             ; tb_layer2         ;
-; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; tb_layer2                              ; --            ; --             ; eda_simulation    ;
-; EDA_OUTPUT_DATA_FORMAT               ; Verilog Hdl                            ; --            ; --             ; eda_simulation    ;
-; EDA_SIMULATION_TOOL                  ; ModelSim-Altera (Verilog)              ; <None>        ; --             ; --                ;
-; EDA_TEST_BENCH_ENABLE_STATUS         ; TEST_BENCH_MODE                        ; --            ; --             ; eda_simulation    ;
-; EDA_TEST_BENCH_FILE                  ; tb_aegis_zero_top.v                    ; --            ; --             ; tb_aegis_zero_top ;
-; EDA_TEST_BENCH_FILE                  ; tb_layer2.v                            ; --            ; --             ; tb_layer2         ;
-; EDA_TEST_BENCH_MODULE_NAME           ; tb_aegis_zero_top                      ; --            ; --             ; tb_aegis_zero_top ;
-; EDA_TEST_BENCH_MODULE_NAME           ; tb_layer2                              ; --            ; --             ; tb_layer2         ;
-; EDA_TEST_BENCH_NAME                  ; tb_aegis_zero_top                      ; --            ; --             ; eda_simulation    ;
-; EDA_TEST_BENCH_NAME                  ; tb_layer2                              ; --            ; --             ; eda_simulation    ;
-; EDA_TIME_SCALE                       ; 1 ps                                   ; --            ; --             ; eda_simulation    ;
-; MAX_CORE_JUNCTION_TEMP               ; 85                                     ; --            ; --             ; --                ;
-; MIN_CORE_JUNCTION_TEMP               ; 0                                      ; --            ; --             ; --                ;
-; NOMINAL_CORE_SUPPLY_VOLTAGE          ; 1.2V                                   ; --            ; --             ; --                ;
-; PARTITION_COLOR                      ; -- (Not supported for targeted family) ; --            ; top_aegis_zero ; Top               ;
-; PARTITION_FITTER_PRESERVATION_LEVEL  ; -- (Not supported for targeted family) ; --            ; top_aegis_zero ; Top               ;
-; PARTITION_NETLIST_TYPE               ; -- (Not supported for targeted family) ; --            ; top_aegis_zero ; Top               ;
-; POWER_BOARD_THERMAL_MODEL            ; None (CONSERVATIVE)                    ; --            ; --             ; --                ;
-; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --             ; --                ;
-; PROJECT_OUTPUT_DIRECTORY             ; output_files                           ; --            ; --             ; --                ;
-; TOP_LEVEL_ENTITY                     ; top_aegis_zero                         ; aegis_zero    ; --             ; --                ;
-+--------------------------------------+----------------------------------------+---------------+----------------+-------------------+
++----------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                       ;
++--------------------------------------+----------------------------------------+---------------+--------------------+-------------------+
+; Assignment Name                      ; Value                                  ; Default Value ; Entity Name        ; Section Id        ;
++--------------------------------------+----------------------------------------+---------------+--------------------+-------------------+
+; COMPILER_SIGNATURE_ID                ; 145935892725926.178130126903468        ; --            ; --                 ; --                ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --                 ; tb_mphf_lookup    ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --                 ; tb_layer2         ;
+; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; tb_aegis_zero_top                      ; --            ; --                 ; eda_simulation    ;
+; EDA_OUTPUT_DATA_FORMAT               ; Verilog Hdl                            ; --            ; --                 ; eda_simulation    ;
+; EDA_SIMULATION_TOOL                  ; ModelSim-Altera (Verilog)              ; <None>        ; --                 ; --                ;
+; EDA_TEST_BENCH_ENABLE_STATUS         ; TEST_BENCH_MODE                        ; --            ; --                 ; eda_simulation    ;
+; EDA_TEST_BENCH_FILE                  ; tb_aegis_zero_top.v                    ; --            ; --                 ; tb_aegis_zero_top ;
+; EDA_TEST_BENCH_FILE                  ; tb_mphf_lookup.v                       ; --            ; --                 ; tb_mphf_lookup    ;
+; EDA_TEST_BENCH_FILE                  ; tb_layer2.v                            ; --            ; --                 ; tb_layer2         ;
+; EDA_TEST_BENCH_MODULE_NAME           ; tb_aegis_zero_top                      ; --            ; --                 ; tb_aegis_zero_top ;
+; EDA_TEST_BENCH_MODULE_NAME           ; tb_mphf_lookup                         ; --            ; --                 ; tb_mphf_lookup    ;
+; EDA_TEST_BENCH_MODULE_NAME           ; tb_layer2                              ; --            ; --                 ; tb_layer2         ;
+; EDA_TEST_BENCH_NAME                  ; tb_aegis_zero_top                      ; --            ; --                 ; eda_simulation    ;
+; EDA_TEST_BENCH_NAME                  ; tb_layer2                              ; --            ; --                 ; eda_simulation    ;
+; EDA_TEST_BENCH_NAME                  ; tb_mphf_lookup                         ; --            ; --                 ; eda_simulation    ;
+; EDA_TIME_SCALE                       ; 1 ps                                   ; --            ; --                 ; eda_simulation    ;
+; FITTER_EFFORT                        ; Standard Fit                           ; Auto Fit      ; --                 ; --                ;
+; MAX_CORE_JUNCTION_TEMP               ; 85                                     ; --            ; --                 ; --                ;
+; MIN_CORE_JUNCTION_TEMP               ; 0                                      ; --            ; --                 ; --                ;
+; NOMINAL_CORE_SUPPLY_VOLTAGE          ; 1.2V                                   ; --            ; --                 ; --                ;
+; OPTIMIZATION_MODE                    ; High Performance Effort                ; Balanced      ; --                 ; --                ;
+; PARTITION_COLOR                      ; -- (Not supported for targeted family) ; --            ; aegis_zero_de2_115 ; Top               ;
+; PARTITION_FITTER_PRESERVATION_LEVEL  ; -- (Not supported for targeted family) ; --            ; aegis_zero_de2_115 ; Top               ;
+; PARTITION_NETLIST_TYPE               ; -- (Not supported for targeted family) ; --            ; aegis_zero_de2_115 ; Top               ;
+; PHYSICAL_SYNTHESIS_COMBO_LOGIC       ; On                                     ; Off           ; --                 ; --                ;
+; PHYSICAL_SYNTHESIS_REGISTER_RETIMING ; On                                     ; Off           ; --                 ; --                ;
+; PLACEMENT_EFFORT_MULTIPLIER          ; 4.0                                    ; 1.0           ; --                 ; --                ;
+; POWER_BOARD_THERMAL_MODEL            ; None (CONSERVATIVE)                    ; --            ; --                 ; --                ;
+; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --                 ; --                ;
+; PROJECT_OUTPUT_DIRECTORY             ; output_files                           ; --            ; --                 ; --                ;
+; ROUTER_TIMING_OPTIMIZATION_LEVEL     ; MAXIMUM                                ; Normal        ; --                 ; --                ;
+; TOP_LEVEL_ENTITY                     ; aegis_zero_de2_115                     ; aegis_zero    ; --                 ; --                ;
++--------------------------------------+----------------------------------------+---------------+--------------------+-------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -107,12 +117,12 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:05:01     ; 1.0                     ; 5057 MB             ; 00:05:02                           ;
-; Fitter               ; 00:07:01     ; 1.2                     ; 6693 MB             ; 00:10:20                           ;
-; Assembler            ; 00:00:05     ; 1.0                     ; 4764 MB             ; 00:00:04                           ;
-; Timing Analyzer      ; 00:00:13     ; 1.8                     ; 5236 MB             ; 00:00:17                           ;
-; EDA Netlist Writer   ; 00:00:08     ; 1.0                     ; 4733 MB             ; 00:00:07                           ;
-; Total                ; 00:12:28     ; --                      ; --                  ; 00:15:50                           ;
+; Analysis & Synthesis ; 00:01:22     ; 1.0                     ; 5108 MB             ; 00:01:29                           ;
+; Fitter               ; 00:01:45     ; 1.3                     ; 6677 MB             ; 00:04:29                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4739 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:05     ; 1.6                     ; 5156 MB             ; 00:00:06                           ;
+; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 4707 MB             ; 00:00:02                           ;
+; Total                ; 00:03:16     ; --                      ; --                  ; 00:06:08                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -121,11 +131,11 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; Mi這szKomputer   ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; Mi這szKomputer   ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; Mi這szKomputer   ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; Mi這szKomputer   ; Windows 10 ; 10.0       ; x86_64         ;
-; EDA Netlist Writer   ; Mi這szKomputer   ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis ; IM-Lenovo        ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; IM-Lenovo        ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; IM-Lenovo        ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; IM-Lenovo        ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; IM-Lenovo        ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 

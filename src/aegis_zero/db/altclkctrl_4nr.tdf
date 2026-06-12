@@ -1,0 +1,67 @@
+--altclkctrl CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" CLOCK_TYPE="AUTO" DEVICE_FAMILY="Cyclone IV E" ENA_REGISTER_MODE="none" IMPLEMENT_IN_LES="OFF" NUMBER_OF_CLOCKS=2 USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION="ON" WIDTH_CLKSELECT=1 clkselect inclk outclk CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48
+--VERSION_BEGIN 20.1 cbx_altclkbuf 2020:06:05:12:04:51:SJ cbx_cycloneii 2020:06:05:12:04:51:SJ cbx_lpm_add_sub 2020:06:05:12:04:51:SJ cbx_lpm_compare 2020:06:05:12:04:51:SJ cbx_lpm_decode 2020:06:05:12:04:51:SJ cbx_lpm_mux 2020:06:05:12:04:51:SJ cbx_mgl 2020:06:05:12:11:10:SJ cbx_nadder 2020:06:05:12:04:51:SJ cbx_stratix 2020:06:05:12:04:51:SJ cbx_stratixii 2020:06:05:12:04:51:SJ cbx_stratixiii 2020:06:05:12:04:51:SJ cbx_stratixv 2020:06:05:12:04:51:SJ  VERSION_END
+
+
+-- Copyright (C) 2020  Intel Corporation. All rights reserved.
+--  Your use of Intel Corporation's design tools, logic functions 
+--  and other software and tools, and any partner logic 
+--  functions, and any output files from any of the foregoing 
+--  (including device programming or simulation files), and any 
+--  associated documentation or information are expressly subject 
+--  to the terms and conditions of the Intel Program License 
+--  Subscription Agreement, the Intel Quartus Prime License Agreement,
+--  the Intel FPGA IP License Agreement, or other applicable license
+--  agreement, including, without limitation, that your use is for
+--  the sole purpose of programming logic devices manufactured by
+--  Intel and sold by Intel or its authorized distributors.  Please
+--  refer to the applicable agreement for further details, at
+--  https://fpgasoftware.intel.com/eula.
+
+
+FUNCTION cycloneive_clkctrl (clkselect[1..0], ena, inclk[3..0])
+WITH ( clock_type, ena_register_mode)
+RETURNS ( outclk);
+
+--synthesis_resources = clkctrl 1 reg 2 
+OPTIONS ALTERA_INTERNAL_OPTION = "{-to ena_reg} POWER_UP_LEVEL=HIGH;{-to select_reg} POWER_UP_LEVEL=LOW";
+
+SUBDESIGN altclkctrl_4nr
+( 
+	clkselect[0..0]	:	input;
+	inclk[1..0]	:	input;
+	outclk	:	output;
+) 
+VARIABLE 
+	ena_reg : dffe
+		WITH (
+			power_up = "high"
+		);
+	select_reg[0..0] : dffe
+		WITH (
+			power_up = "low"
+		);
+	clkctrl1 : cycloneive_clkctrl
+		WITH (
+			clock_type = "AUTO"
+		);
+	clkselect_wire[1..0]	: WIRE;
+	ena	: NODE;
+	inclk_wire[3..0]	: WIRE;
+	select_enable_wire[0..0]	: WIRE;
+
+BEGIN 
+	ena_reg.clk = (! clkctrl1.outclk);
+	ena_reg.d = (ena & (! select_enable_wire[0..0]));
+	select_reg[].clk = (! clkctrl1.outclk);
+	select_reg[].d = clkselect_wire[0..0];
+	select_reg[].ena = (! ena_reg.q);
+	clkctrl1.clkselect[] = ( B"0", select_reg[].q);
+	clkctrl1.ena = B"1";
+	clkctrl1.inclk[] = inclk_wire[];
+	clkselect_wire[] = ( B"0", clkselect[]);
+	ena = VCC;
+	inclk_wire[] = ( B"00", inclk[]);
+	outclk = (clkctrl1.outclk & ena_reg.q);
+	select_enable_wire[] = ( (clkselect_wire[0..0] $ select_reg[0..0].q));
+END;
+--VALID FILE
