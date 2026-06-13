@@ -107,6 +107,7 @@ aegis_zero/
     ├── tb_aegis_zero_top.v             — kopia testbencha
     └── generate_verification_bloom.py  — generator testowego bloom_filter.hex
 
+                                
 ```
 
 ---
@@ -120,7 +121,116 @@ aegis_zero/
 - Intel Quartus Prime 20.1 Lite Edition (lub nowszy)
 - Sterownik Altera USB-Blaster
 
-### Kompilacja i programowanie
+## Procedura uruchomienia krok po kroku
+
+Procedura jest podzielona na cztery niezależne tryby. Pełne uruchomienie od zera (symulacja + synteza + programowanie + walidacja) zajmuje **25–35 minut**.
+
+### Tryb A — Symulacja funkcjonalna w ModelSim (~3 min)
+
+Pełna regresja testów jednostkowych i integracyjnego z scoreboardem.
+
+1. Otwórz ModelSim (Start → Quartus Prime → ModelSim-Altera)
+2. W konsoli Tcl wpisz:
+   ```tcl
+   cd <ścieżka>/aegis_zero/simulation/modelsim
+   do run_all.do
+   ```
+3. Skrypt automatycznie:
+   - skopiuje pliki `.hex` do katalogu roboczego
+   - skompiluje wszystkie moduły RTL i testbenche
+   - uruchomi testbenche jednostkowe (`tb_bloom_filter_checked`, `tb_mphf_lookup`, `tb_layer2`)
+   - uruchomi testbench integracyjny ze scoreboardem (`tb_aegis_zero_top`)
+4. W oknie **Transcript** szukaj komunikatu końcowego:
+   ```
+   FINAL_STATUS: PASS
+   ```
+   Jeśli pojawi się `FAIL`, log wskaże etap niezgodności: `BLOOM`, `MPHF`, `BRAM`, `DEC` albo `SCOREBOARD`.
+
+**Pojedynczy testbench** (opcjonalnie):
+```tcl
+do sim_bloom.do    # tylko filtr Blooma
+do sim_mphf.do     # tylko MPHF
+do sim_top.do      # tylko integracyjny top-level
+```
+
+### Tryb B — Synteza i programowanie DE2-115 (~15 min)
+
+1. Podłącz płytkę DE2-115 kablem USB do komputera. Włącz zasilanie przełącznikiem na płytce (zaświeci się czerwona dioda zasilania).
+2. Otwórz **Quartus Prime 20.1 Lite Edition**.
+3. `File → Open Project...` → wybierz `aegis_zero.qpf` → `Open`.
+4. Sprawdź w **Project Navigator**, że top-level entity to `aegis_zero_de2_115`. Jeśli widzisz inny moduł: PPM na `aegis_zero_de2_115` → `Set as Top-Level Entity`.
+5. Uruchom pełną kompilację: `Processing → Start Compilation` (Ctrl+L). Czas: **10–15 min**.
+6. Po zakończeniu (status **Successful**) sprawdź **Compilation Report**:
+   - **Flow Summary**: Total LE ≈ 11 392 (10%), Memory bits ≈ 778 752 (20%), PLLs = 1
+   - **TimeQuest → Slow 1200mV 85C → Fmax Summary**: Fmax ≈ 106 MHz
+7. Otwórz `Tools → Programmer`:
+   - `Hardware Setup...` → wybierz **USB-Blaster** → `Close`
+     - Jeśli USB-Blaster nie pojawia się — zainstaluj sterownik z `<Quartus>/drivers/usb-blaster/` przez Menedżer Urządzeń
+   - Tryb: **JTAG** (domyślny)
+   - `Add File...` → wybierz `output_files/aegis_zero.sof`
+   - Zaznacz checkbox **Program/Configure**
+   - Kliknij **Start** (pasek dojdzie do 100% w 1–2 s)
+8. Po programowaniu **LEDG[3]** (PLL_LOCKED) powinno zaświecić. Jeśli nie — kliknij **KEY[0]** (reset).
+
+### Tryb C — Walidacja demonstracyjna na płytce (~5 min)
+
+Sekwencja 12 testów pokrywa wszystkie trzy ścieżki decyzyjne, oba zegary i oba tryby.
+
+| # | Konfiguracja SW | Czynność | Spodziewany wynik |
+|---|---|---|---|
+| 0 | wszystkie SW = 0 | Pre-flight (bez interakcji) | LEDG[3] świeci, HEX = `0000 0000` |
+| 1 | wszystkie SW = 0 | Manipuluj SW bez KEY[2] | LEDG[0..2] zgaszone (brak fałszywych impulsów) |
+| 2 | SW[17]=1, SW[2:0]=000 | KEY[2] | **LEDG[0] ALLOW** dla `0x010393AE` |
+| 3 | SW[17]=1, SW[2:0]=001,010,011 | KEY[2] × 3 | LEDG[0] ALLOW dla 3 adresów zaufanych |
+| 4 | SW[17]=1, SW[2:0]=101 | KEY[2] | **LEDG[1] DENY** (Bloom reject), LEDR[4] nie miga |
+| 5 | SW[17]=1, SW[2:0]=100 | KEY[2] → SW[15]=1 | LEDG[1] DENY, HEX pokazuje inny adres niż `C0A8 0001` (**FP Recovery**) |
+| 6 | SW[17]=1, SW[2:0]=111 | KEY[2] | LEDG[1] DENY dla `0x00000000` |
+| 7 | SW[17]=0, manual load `FFFFFFFF` | 2× KEY[1] + KEY[2] | LEDG[1] DENY broadcast |
+| 8 | dowolnie | KEY[2] → natychmiast KEY[0] | LEDG[0]/[1] nie świecą (pakiet anulowany) |
+| 9 | SW[14]=1 | KEY[3] → strzelaj preset | Liczniki na HEX rosną monotonicznie |
+| 10 | SW[16]=1 | KEY[0] → powtórz Test 2 | LEDG[4] świeci (50 MHz), ALLOW identycznie |
+| 11 | SW[17]=0, manual load `0x01041F9F` | 2× KEY[1] + KEY[2] | LEDG[0] ALLOW dla ręcznie wpisanego adresu |
+| 12 | po Teście 11, SW[15]=1 | (bez akcji) | HEX pokazuje `0104 1F9F` = stored_ip |
+
+**Skrócona sekwencja demonstracyjna** (3–5 min):
+Test 0 → Test 2 (ALLOW) → Test 4 (DENY) → Test 5 (FP Recovery) → Test 9 (liczniki) → Test 10 (50 MHz fallback)
+
+### Tryb D — Regeneracja danych konfiguracyjnych (~30 s)
+
+Tylko jeśli chcesz zmienić bazę zaufanych adresów (np. inny seed RNG).
+
+```bash
+cd aegis_zero/
+
+# 1. Wygeneruj pełną production-scale bazę 10k hostów
+python tools/gen_mphf.py --seed 0x13579BE1 --num-hosts 10000 --output-dir .
+
+# 2. Zachowaj kompatybilność testów demonstracyjnych (podmień 4 adresy + bity Blooma)
+python tools/patch_test_addresses.py
+
+# 3. Skopiuj nowe pliki do simulation/modelsim/ dla regresji
+cp bram_rules.hex g1.hex g2.hex bloom_filter.hex simulation/modelsim/
+```
+
+Po regeneracji wróć do **Trybu A** (re-symulacja) lub **Trybu B** (rekompilacja).
+
+### Typowe problemy i ich rozwiązania
+
+| Symptom | Przyczyna | Rozwiązanie |
+|---|---|---|
+| USB-Blaster nie widoczny w Hardware Setup | Brak sterownika | Zainstaluj z `<Quartus>/drivers/usb-blaster/` przez Menedżer Urządzeń |
+| LEDG[3] nie świeci po programowaniu | PLL nie ma locka | Klik KEY[0] (reset). Jeśli nadal nie — reprogramuj `.sof` |
+| HEX pokazuje śmieci po programowaniu | Rejestry nie zresetowane | Klik KEY[0] |
+| Klik KEY[2] nie reaguje | Słabe naciśnięcie, debouncer wymaga ~5 ms | Kliknij mocno i krótko (nie tap'y) |
+| Po SW[14]=1 nic się nie zmienia na HEX | HEX pokazuje teraz licznik, nie src_ip | To poprawne zachowanie |
+| Liczniki nie zerują się przez KEY[3] | Trzymasz przycisk | Klik krótki, potem puścić |
+| Test 2 daje DENY zamiast ALLOW | Stary preset niezgodny z `bram_rules.hex` | Wykonaj Tryb D (regeneracja + patch) |
+| `FINAL_STATUS: FAIL` w ModelSim | Niezgodność modelu RTL po zmianie HDL | Sprawdź etap niezgodności w logu (BLOOM/MPHF/BRAM/DEC) |
+| Kompilacja: negative slack timing | Zbyt agresywne `.sdc` constraint | Przełącz SW[16]=1 (50 MHz) na płytce |
+
+---
+
+## Kompilacja i programowanie (skrót)
 
 1. Otwórz projekt: `File → Open Project → aegis_zero.qpf`
 2. Sprawdź Top-level entity: powinno być `aegis_zero_de2_115`
